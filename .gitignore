@@ -1,0 +1,43 @@
+# Build artifacts
+build/
+**/build/
+
+# ESP-IDF generated files
+sdkconfig
+sdkconfig.old
+sdkconfig.ci
+
+# Binary outputs
+*.bin
+*.elf
+*.map
+
+# Ninja build system
+.ninja_*
+build.ninja
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+
+# IDE
+.vscode/
+.reasonix/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Flash args
+*_flash_args
+*_flash_args.in
+flash_args
+flash_args.in
+flasher_args.json
+flasher_args.json.in
