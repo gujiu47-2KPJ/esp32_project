@@ -1,0 +1,23 @@
+﻿{
+    "idf.espIdfPathWin":  "D:\\esp\\v6.0.2\\esp-idf",
+    "idf.toolsPathWin":  "D:\\Espressif",
+    "idf.pythonBinPathWin":  "D:\\Espressif\\python_env\\idf6.0_py3.12_env\\Scripts\\python.exe",
+    "idf.gitPathWin":  "G:\\Git\\cmd\\git.exe",
+    "idf.espIdfPath":  "D:\\esp\\v6.0.2\\esp-idf",
+    "idf.toolsPath":  "D:\\Espressif",
+    "idf.pythonBinPath":  "D:\\Espressif\\python_env\\idf6.0_py3.12_env\\Scripts\\python.exe",
+    "idf.gitPath":  "G:\\Git\\cmd\\git.exe",
+    "idf.showWelcomeOnInit":  false,
+    "idf.port":  "",
+    "idf.currentSetup":  "D:\\esp\\v6.0.2\\esp-idf",
+    "idf.customExtraVars":  {
+                                "IDF_TOOLS_PATH":  "D:\\Espressif",
+                                "IDF_PATH":  "D:\\esp\\v6.0.2\\esp-idf",
+                                "ESP_IDF_VERSION":  "6.0.2",
+                                "IDF_PYTHON_ENV_PATH":  "D:\\Espressif\\python_env\\idf6.0_py3.12_env"
+                            },
+    "idf.portWin":  "COM14",
+    "idf.flashType":  "UART",
+    "platformio-ide.useBuiltinPython":  false,
+    "platformio-ide.customPlatformioCorePath":  "D:\\platformio"
+}

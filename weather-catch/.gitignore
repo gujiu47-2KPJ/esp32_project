@@ -1,6 +1,11 @@
-﻿# Build artifacts
+# Build artifacts
 build/
 **/build/
+
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
 
 # ESP-IDF generated files
 sdkconfig
@@ -25,8 +30,6 @@ compile_commands.json
 # IDE (keep c_cpp_properties.json for IntelliSense)
 .vscode/*
 !.vscode/c_cpp_properties.json
-!.vscode/settings.json
-.reasonix/
 
 # OS
 Thumbs.db
@@ -35,11 +38,3 @@ Thumbs.db
 # Python
 __pycache__/
 *.pyc
-
-# Flash args
-*_flash_args
-*_flash_args.in
-flash_args
-flash_args.in
-flasher_args.json
-flasher_args.json.in
