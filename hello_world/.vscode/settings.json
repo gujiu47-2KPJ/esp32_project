@@ -1,0 +1,21 @@
+{
+  "idf.espIdfPath": "D:/esp/v6.0.2/esp-idf",
+  "idf.toolsPath": "D:/Espressif",
+  "idf.pythonBinPath": "D:/Espressif/python_env/idf6.0_py3.12_env/Scripts/python.exe",
+  "idf.gitPath": "G:/Git/cmd/git.exe",
+  "idf.currentSetup": "D:/esp/v6.0.2/esp-idf",
+  "idf.eimIdfJsonPath": "D:/Espressif/eim_idf.json",
+  "idf.customExtraVars": {
+    "IDF_PATH": "D:/esp/v6.0.2/esp-idf",
+    "IDF_TOOLS_PATH": "D:/Espressif",
+    "IDF_PYTHON_ENV_PATH": "D:/Espressif/python_env/idf6.0_py3.12_env",
+    "ESP_IDF_VERSION": "6.0.2"
+  },
+  "idf.port": "COM14",
+  "idf.flashType": "UART",
+  "idf.openocdPath": "D:/Espressif/tools/openocd-esp32/v0.12.0-esp32-20260424/openocd-esp32/bin/openocd.exe",
+  "idf.openOcdConfigs": [
+    "board/esp32-wrover-kit-3.3v.cfg"
+  ],
+  "idf.portWin": "COM17"
+}

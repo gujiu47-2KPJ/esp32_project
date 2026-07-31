@@ -1,0 +1,40 @@
+{
+  "configurations": [
+    {
+      "name": "ESP-IDF",
+      "compilerPath": "D:/Espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc.exe",
+      "compileCommands": "${config:idf.buildPath}/compile_commands.json",
+      "intelliSenseMode": "gcc-x64",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "D:/esp/v6.0.2/esp-idf/components/**",
+        "D:/esp/v6.0.2/esp-idf/components/freertos/FreeRTOS-Kernel/include",
+        "D:/esp/v6.0.2/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include",
+        "D:/esp/v6.0.2/esp-idf/components/esp_common/include",
+        "D:/esp/v6.0.2/esp-idf/components/esp_system/include",
+        "D:/esp/v6.0.2/esp-idf/components/esp_hw_support/include",
+        "D:/esp/v6.0.2/esp-idf/components/esp_rom/include",
+        "D:/esp/v6.0.2/esp-idf/components/soc/include",
+        "D:/esp/v6.0.2/esp-idf/components/soc/esp32/include",
+        "D:/esp/v6.0.2/esp-idf/components/hal/include",
+        "D:/esp/v6.0.2/esp-idf/components/xtensa/include",
+        "D:/esp/v6.0.2/esp-idf/components/xtensa/esp32/include",
+        "D:/esp/v6.0.2/esp-idf/components/esp_driver_gpio/include"
+      ],
+      "defines": [
+        "ESP_PLATFORM",
+        "IDF_VER=\"v6.0.2\"",
+        "CONFIG_FREERTOS_HZ=100",
+        "CONFIG_IDF_TARGET_ESP32=1",
+        "_GNU_SOURCE"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}"
+        ],
+        "limitSymbolsToIncludedHeaders": true
+      }
+    }
+  ],
+  "version": 4
+}
