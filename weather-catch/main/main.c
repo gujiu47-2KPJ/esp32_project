@@ -107,8 +107,8 @@ static void uart_send_to_stm32(float temp, float hum)
     frame[7] = 0x0D;
     frame[8] = 0x0A;
 
-    uart_write_bytes(UART_STM32_NUM, frame, sizeof(frame));
-    ESP_LOGI(TAG, "UART->STM32: T=%.2fC H=%.2f%% (frame sent", temp, hum);
+    for (int r_ = 0; r_ < 20; r_++) uart_write_bytes(UART_STM32_NUM, frame, sizeof(frame));
+    ESP_LOGI(TAG, "UART->STM32: T=%.2fC H=%.2f%% (20 frames sent", temp, hum);
 }
 
 /* ============================================================
@@ -280,28 +280,46 @@ static esp_err_t api_weather_post_handler(httpd_req_t *req)
 {
     char buf[256];
     int ret, remaining = req->content_len;
-    if (remaining >= sizeof(buf)) {
+
+    if (remaining < 0) {
+        httpd_resp_send_err(req, HTTPD_411_LENGTH_REQUIRED, "Need Content-Length");
+        return ESP_FAIL;
+    }
+    if (remaining >= (int)sizeof(buf)) {
+        ESP_LOGE(TAG, "POST content_len=%d too long (max %d)", remaining, (int)sizeof(buf)-1);
         httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Content too long");
         return ESP_FAIL;
     }
-    ret = httpd_req_recv(req, buf, remaining);
-    if (ret <= 0) {
+
+    /* 循环接收完整数据（修复TCP分片问题） */
+    int total_recv = 0;
+    while (total_recv < remaining) {
+        ret = httpd_req_recv(req, buf + total_recv, remaining - total_recv);
         if (ret == HTTPD_SOCK_ERR_TIMEOUT) {
             httpd_resp_send_408(req);
+            return ESP_FAIL;
         }
-        return ESP_FAIL;
+        if (ret <= 0) {
+            ESP_LOGE(TAG, "httpd_req_recv failed, ret=%d", ret);
+            httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Socket recv error");
+            return ESP_FAIL;
+        }
+        total_recv += ret;
     }
-    buf[ret] = '\0';
-    ESP_LOGI(TAG, "POST /api/weather body: %s", buf);
+    buf[total_recv] = '\0';
+    ESP_LOGI(TAG, "POST /api/weather (len=%d): %s", total_recv, buf);
 
     cJSON *root = cJSON_Parse(buf);
     if (!root) {
+        /* 解析失败，把原始内容打印出来方便排查 */
+        ESP_LOGE(TAG, "cJSON parse FAIL! Raw dump: %s", buf);
         httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Invalid JSON");
         return ESP_FAIL;
     }
     cJSON *jtemp = cJSON_GetObjectItem(root, "temp");
     cJSON *jhum  = cJSON_GetObjectItem(root, "hum");
     if (!jtemp || !jhum || !cJSON_IsNumber(jtemp) || !cJSON_IsNumber(jhum)) {
+        ESP_LOGE(TAG, "JSON ok but missing temp/hum numbers");
         cJSON_Delete(root);
         httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Need temp and hum numbers");
         return ESP_FAIL;
@@ -325,6 +343,7 @@ static esp_err_t api_weather_post_handler(httpd_req_t *req)
     httpd_resp_set_type(req, "application/json");
     const char *resp = "{\"ok\":true,\"msg\":\"data received and sent to STM32\"}";
     httpd_resp_send(req, resp, strlen(resp));
+    ESP_LOGI(TAG, "POST ok: T=%.2f H=%.2f", t, h);
     return ESP_OK;
 }
 
